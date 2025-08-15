@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Upload</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+
+        /* Added gradient background */
+        .container {
+            min-height: 100vh;
+            width: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            background: linear-gradient(to bottom, #bfdbfe, #ffffff);
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+            width: 600px;
+            background-color: #ffffff;
+            padding: 10px 30px 40px;
+        }
+
+        .card h3 { font-size: 22px; font-weight: 600; text-align: center; }
+        .drop_box { margin: 10px 0; padding: 30px; display: flex; align-items: center; justify-content: center; flex-direction: column; border: 3px dotted #a3a3a3; border-radius: 5px; }
+        .drop_box h4 { font-size: 16px; font-weight: 400; color: #2e2e2e; }
+        .drop_box p { margin-top: 10px; margin-bottom: 20px; font-size: 12px; color: #a3a3a3; }
+        .btn { text-decoration: none; background-color: #005af0; color: #ffffff; padding: 10px 20px; border: none; outline: none; transition: 0.3s; cursor: pointer; display: block; margin: 5px auto; }
+        .btn:hover { background-color: #ffffff; color: #005af0; outline: 1px solid #010101; }
+
+        .color-output-container { margin-top: 20px; text-align: center; padding: 15px; border: 2px solid #ddd; border-radius: 10px; background-color: white; width: 80%; max-width: 800px; }
+        .color-box { width: 100px; height: 100px; border-radius: 5px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 12px; cursor: pointer; transition: transform 0.2s ease; }
+        .color-box:hover { transform: scale(1.05); }
+        .copied { font-size: 12px; color: green; margin-top: 5px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h3>Upload Photo</h3>
+            <div class="drop_box">
+                <header>
+                    <h4>Select Photo</h4>
+                </header>
+                <p>Files Supported: PNG, JPG, JPEG, GIF</p>
+
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="fileID" hidden accept=".png,.jpg,.jpeg,.gif">
+                    <button type="button" class="btn" id="chooseBtn">Choose File</button>
+                    <span id="fileName" style="margin-top: 10px; font-size: 12px; color: #555;"></span>
+                    <input type="submit" class="btn" value="Upload">
+                </form>
+            </div>
+        </div>
+
+        {% if colors %}
+        <div class="color-output-container">
+            <h3>Extracted Colors (Click to Copy)</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+                {% for rgb, hex in colors %}
+                    <div class="color-box"
+                         style="background-color: {{ hex }}; color: {{ 'black' if (rgb[0] > 200 and rgb[1] > 200 and rgb[2] > 200) else 'white' }};"
+                         onclick="copyToClipboard('{{ hex }}')">
+                        {{ rgb }}<br>{{ hex }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="copied" id="copiedMsg">Copied!</div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        const chooseBtn = document.getElementById("chooseBtn");
+        const fileInput = document.getElementById("fileID");
+        const fileNameSpan = document.getElementById("fileName");
+
+        chooseBtn.addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", () => {
+            if (fileInput.files.length > 0) {
+                fileNameSpan.textContent = fileInput.files[0].name;
+            }
+        });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const msg = document.getElementById("copiedMsg");
+                msg.style.display = "block";
+                setTimeout(() => msg.style.display = "none", 1000);
+            });
+        }
+    </script>
+</body>
+</html>
