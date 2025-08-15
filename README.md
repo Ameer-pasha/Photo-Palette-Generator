@@ -42,8 +42,9 @@ It displays both **HEX** and **RGB** codes in a clean, modern UI, perfect for de
 ## 📂 Project Structure
 Photo-Palette-Generator/
 │
-├── templates/          # HTML templates (index.html)
-├── app.py              # Main Flask app
-├── requirements.txt    # Dependencies
-└── README.md           # Documentation
-
+├── static/               # CSS, JS, and images (if any separate files added)
+├── templates/            # HTML template files
+│   └── index.html        # Main homepage template with upload form and color results
+├── app.py                # Main Flask application file with routes and color extraction
+├── requirements.txt      # Project dependencies
+└── README.md             # Project documentation
