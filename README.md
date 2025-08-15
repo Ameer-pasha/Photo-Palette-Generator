@@ -40,18 +40,14 @@ It displays both **HEX** and **RGB** codes in a clean, modern UI, perfect for de
 ---
 
 ## 📂 Project Structure
-```
-your-project-folder/ 
+Photo-Palette-Generator/
 │
-├── templates/           # HTML template files (cafe_explorer, search_results, form)
-│   ├── cafe_explorer.html    # Homepage with map and cafe list
-│   ├── search_results.html   # Search results page
-│   └── form.html             # Add cafe form page
-│
-├── cafes.db             # SQLite database file (auto-created)
-├── main.py              # Main Flask application file with routes and DB setup
-├── .env                 # Environment variables (e.g., DATABASE_URL)
-├── requirements.txt     # Project dependencies
-└── README.md            # Project documentation
+├── static/               # CSS, JS, and images (if any separate files added)
+├── templates/            # HTML template files
+│   └── index.html        # Main homepage template with upload form and color results
+├── app.py                # Main Flask application file with routes and color extraction
+├── requirements.txt      # Project dependencies
+└── README.md             # Project documentation
+
 ```
 ---
