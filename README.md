@@ -38,6 +38,7 @@ It displays both **HEX** and **RGB** codes in a clean, modern UI, perfect for de
 - **HTML / CSS / JavaScript** (frontend)
 
 ---
+---
 
 ## 📂 Project Structure
 Photo-Palette-Generator/
@@ -50,4 +51,4 @@ Photo-Palette-Generator/
 └── README.md             # Project documentation
 
 ```
----
+
